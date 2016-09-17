@@ -13,6 +13,7 @@ if [ "`uname | grep -c -i mingw`" != 0 ]; then
 	LIBS="$LIBS -lws2_32"
 fi
 g++ -c $FLAGS src/Toolkit.cpp -o obj/toolkit.o
+g++ -c $FLAGS src/Config.cpp -o obj/config.o
 g++ -c $FLAGS src/Dialogger.cpp -o obj/dialogger.o
 g++ -c $FLAGS src/Splash/RunServer.cpp -o obj/runserver.o #-I../boost-1.61.0/include
 g++ -c $FLAGS src/Splash/Splash.cpp -o obj/splash.o
@@ -41,6 +42,7 @@ g++ -c $FLAGS src/ListsManager/ListsEditSignals.cpp -o obj/listseditsignals.o
 g++ -c $FLAGS src/Main/Main.cpp -o obj/main.o
 g++ $FLAGS \
 	obj/toolkit.o\
+	obj/config.o\
 	obj/dialogger.o\
 	obj/runserver.o\
 	obj/splash.o\

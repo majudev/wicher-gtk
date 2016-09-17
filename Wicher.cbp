@@ -36,6 +36,7 @@
 		</Build>
 		<Unit filename="include/Builder.h" />
 		<Unit filename="include/ColumnModels.h" />
+		<Unit filename="include/Config.h" />
 		<Unit filename="include/Database.h" />
 		<Unit filename="include/Dialogger.h" />
 		<Unit filename="include/ListsManager.h" />
@@ -46,6 +47,7 @@
 		<Unit filename="include/ToolbarOptions.h" />
 		<Unit filename="include/Toolkit.h" />
 		<Unit filename="include/sha256.h" />
+		<Unit filename="src/Config.cpp" />
 		<Unit filename="src/Database.cpp" />
 		<Unit filename="src/DatabaseQuery.cpp" />
 		<Unit filename="src/Dialogger.cpp" />
