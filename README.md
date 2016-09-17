@@ -1,2 +1,2 @@
 # wicher
-Program magazynowy Wicher
+Program magazynowy Wicher.
