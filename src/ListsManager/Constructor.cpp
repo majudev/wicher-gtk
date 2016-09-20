@@ -54,23 +54,23 @@ Wicher::ListsManager::ListsManager(){
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_type_name_edited) );
 
     renderer = static_cast<Gtk::CellRendererText*>(wz_tree->get_column(1)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_wz_date_edited) );
     renderer = static_cast<Gtk::CellRendererText*>(wz_tree->get_column(2)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_wz_person_edited) );
     renderer = static_cast<Gtk::CellRendererText*>(wz_tree->get_column(4)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_wz_comment_edited) );
 
     renderer = static_cast<Gtk::CellRendererText*>(pz_tree->get_column(2)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_pz_date_edited) );
     renderer = static_cast<Gtk::CellRendererText*>(pz_tree->get_column(3)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_pz_person_edited) );
     renderer = static_cast<Gtk::CellRendererText*>(pz_tree->get_column(4)->get_first_cell());
-    renderer->property_editable() = true;
+    renderer->property_editable() = false;
     renderer->signal_edited().connect( sigc::mem_fun(this, &Wicher::ListsManager::on_pz_comment_edited) );
 
     this->type_tree->signal_row_activated().connect( sigc::mem_fun(sw, &Wicher::SignalWindows::show_info_type_window) );

@@ -1,6 +1,7 @@
 #include "ListsManager.h"
 
 void Wicher::ListsManager::on_wz_date_edited(const Glib::ustring& path_string, const Glib::ustring& new_text){
+    if(!Wicher::Config::getSingleton().get_unsafe_mode()) return;
     if(new_text.empty()) return;
     Gtk::TreePath path(path_string);
     Gtk::TreeModel::iterator iter = this->wz_list->get_iter(path);
@@ -20,6 +21,7 @@ void Wicher::ListsManager::on_wz_date_edited(const Glib::ustring& path_string, c
     }
 }
 void Wicher::ListsManager::on_wz_person_edited(const Glib::ustring& path_string, const Glib::ustring& new_text){
+    if(!Wicher::Config::getSingleton().get_unsafe_mode()) return;
     if(new_text.empty()) return;
     Gtk::TreePath path(path_string);
     Gtk::TreeModel::iterator iter = this->wz_list->get_iter(path);
@@ -58,6 +60,7 @@ void Wicher::ListsManager::on_wz_comment_edited(const Glib::ustring& path_string
 }
 
 void Wicher::ListsManager::on_pz_date_edited(const Glib::ustring& path_string, const Glib::ustring& new_text){
+    if(!Wicher::Config::getSingleton().get_unsafe_mode()) return;
     if(new_text.empty()) return;
     Gtk::TreePath path(path_string);
     Gtk::TreeModel::iterator iter = this->pz_list->get_iter(path);
@@ -77,6 +80,7 @@ void Wicher::ListsManager::on_pz_date_edited(const Glib::ustring& path_string, c
     }
 }
 void Wicher::ListsManager::on_pz_person_edited(const Glib::ustring& path_string, const Glib::ustring& new_text){
+    if(!Wicher::Config::getSingleton().get_unsafe_mode()) return;
     if(new_text.empty()) return;
     Gtk::TreePath path(path_string);
     Gtk::TreeModel::iterator iter = this->pz_list->get_iter(path);

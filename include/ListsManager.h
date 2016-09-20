@@ -8,6 +8,7 @@
 #include "Database.h"
 #include "Dialogger.h"
 #include "Builder.h"
+#include "Config.h"
 #include "ColumnModels.h"
 
 namespace Wicher{

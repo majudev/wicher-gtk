@@ -11,12 +11,12 @@ Wicher::Main::Main(int argc, char * argv[]){
     builder->get_widget("toolbar_refresh", toolbar_refresh);
     builder->get_widget("toolbar_info", toolbar_info);
 
+    lists_manager = new ListsManager();
+
     options_window = new ToolbarOptions(Glib::RefPtr<Gtk::Window>(window));
     info_window = new ToolbarInfo(Glib::RefPtr<Gtk::Window>(window));
 
     window->maximize();
-
-    lists_manager = new ListsManager();
 
     if(window){
         Wicher::Toolkit::set_icon(window);
