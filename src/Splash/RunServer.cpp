@@ -1,5 +1,6 @@
 #include "Splash.h"
-#include <boost/thread.hpp>
+#include <thread>
+#include <chrono>
 #define __NOISY
 
 FILE * f;
@@ -23,7 +24,8 @@ bool Wicher::Splash::run_server(){
         pclose(f);
         return false;
     }
-    boost::this_thread::sleep(boost::posix_time::milliseconds(50));
-    boost::thread t(&server_thread);
+    //boost::this_thread::sleep(boost::posix_time::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::thread t(&server_thread);
     return true;
 }

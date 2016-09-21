@@ -7,8 +7,8 @@ fi
 if ! [ -e obj ]; then
 	mkdir obj
 fi
-FLAGS="-O3 -Wall -Iinclude `pkg-config --cflags gtkmm-3.0 jansson`"
-LIBS="`pkg-config --libs gtkmm-3.0 jansson` -lboost_thread -lboost_system"
+FLAGS="-std=c++11 -O3 -Wall -Iinclude `pkg-config --cflags gtkmm-3.0 jansson`"
+LIBS="`pkg-config --libs gtkmm-3.0 jansson`"
 if [ "`uname | grep -c -i mingw`" != 0 ]; then
 	LIBS="$LIBS -lws2_32"
 fi

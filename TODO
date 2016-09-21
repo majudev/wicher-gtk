@@ -1,4 +1,5 @@
 +> Fix safety switch
++> Remove boost depency
 -> Add document generating support
 -> Add libharu support
 -> Create installer
