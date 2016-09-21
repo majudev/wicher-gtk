@@ -56,7 +56,34 @@ void Wicher::SignalWindows::show_info_pz_window(const Gtk::TreeModel::Path& path
 }
 
 void Wicher::SignalWindows::on_info_pz_ok_button_clicked(){
+    /*if(!Wicher::Config::getSingleton().get_unsafe_mode()){
         this->info_pz_window->close();
+        return;
+    }*/
+    if(this->is_shown_info_pz_window()){
+        Glib::ustring id = info_pz_id_entry->get_text();
+        Glib::ustring wz_id = info_pz_wz_id_entry->get_text();
+        Glib::ustring person = info_pz_person_entry->get_text();
+        Glib::ustring date = info_pz_date_entry->get_text();
+        Glib::ustring comment = info_pz_comment_entry->get_text();
+        if(!id.empty()){
+            std::string response;
+            if(Wicher::Config::getSingleton().get_unsafe_mode()) response = Wicher::Database::getSingleton().run(Wicher::Database::Query::change_pz(Toolkit::strtoi(id), date, person, true, comment));
+            else response = Wicher::Database::getSingleton().run(Wicher::Database::Query::change_pz(Toolkit::strtoi(id), std::string(), std::string(), true, comment));
+            json_error_t error;
+            json_t * root = json_loads(response.c_str(), 0, &error);
+            json_t * resp = json_object_get(root, "response");
+            if(root){
+                if(!json_is_string(resp) || std::string(json_string_value(resp)) != std::string("ok")){
+                    Dialogger::query_error(info_pz_window, root);
+                }
+            }else{
+                Dialogger::response_error(info_pz_window, error);
+            }
+            free(root);
+            this->info_pz_window->close();
+        }else Dialogger::empty_entries(new_pz_window);
+    }
 }
 
 void Wicher::SignalWindows::on_info_pz_print_button_clicked(){

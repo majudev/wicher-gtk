@@ -65,7 +65,33 @@ void Wicher::SignalWindows::show_info_wz_window(const Gtk::TreeModel::Path& path
 }
 
 void Wicher::SignalWindows::on_info_wz_ok_button_clicked(){
+    /*if(!Wicher::Config::getSingleton().get_unsafe_mode()){
         this->info_wz_window->close();
+        return;
+    }*/
+    if(this->is_shown_info_wz_window()){
+        Glib::ustring id = info_wz_id_entry->get_text();
+        Glib::ustring person = info_wz_person_entry->get_text();
+        Glib::ustring date = info_wz_date_entry->get_text();
+        Glib::ustring comment = info_wz_comment_entry->get_text();
+        if(!id.empty()){
+            std::string response;
+            if(Wicher::Config::getSingleton().get_unsafe_mode()) response = Wicher::Database::getSingleton().run(Wicher::Database::Query::change_wz(Toolkit::strtoi(id), date, person, true, comment));
+            else response = Wicher::Database::getSingleton().run(Wicher::Database::Query::change_wz(Toolkit::strtoi(id), std::string(), std::string(), true, comment));
+            json_error_t error;
+            json_t * root = json_loads(response.c_str(), 0, &error);
+            json_t * resp = json_object_get(root, "response");
+            if(root){
+                if(!json_is_string(resp) || std::string(json_string_value(resp)) != std::string("ok")){
+                    Dialogger::query_error(info_wz_window, root);
+                }
+            }else{
+                Dialogger::response_error(info_wz_window, error);
+            }
+            free(root);
+            this->info_wz_window->close();
+        }else Dialogger::empty_entries(new_wz_window);
+    }
 }
 
 void Wicher::SignalWindows::on_info_wz_pz_button_clicked(){

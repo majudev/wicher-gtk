@@ -5,6 +5,7 @@
 #include "Dialogger.h"
 #include "Builder.h"
 #include "ColumnModels.h"
+#include "Config.h"
 
 namespace Wicher{
 class WZItemsListColumns : public Gtk::TreeModel::ColumnRecord {

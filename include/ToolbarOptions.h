@@ -21,6 +21,10 @@ class ToolbarOptions{
 
         Gtk::TreeView * wz_tree;
         Gtk::TreeView * pz_tree;
+        Gtk::Entry * info_wz_person_entry;
+        Gtk::Entry * info_wz_date_entry;
+        Gtk::Entry * info_pz_person_entry;
+        Gtk::Entry * info_pz_date_entry;
 };
 }
 

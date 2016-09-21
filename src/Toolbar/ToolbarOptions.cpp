@@ -7,6 +7,10 @@ Wicher::ToolbarOptions::ToolbarOptions(Glib::RefPtr<Gtk::Window> parent) : paren
     builder->get_widget("options_window", window);
     builder->get_widget("wz_tree", wz_tree);
     builder->get_widget("pz_tree", pz_tree);
+    builder->get_widget("info_wz_person_entry", info_wz_person_entry);
+    builder->get_widget("info_wz_date_entry", info_wz_date_entry);
+    builder->get_widget("info_pz_person_entry", info_pz_person_entry);
+    builder->get_widget("info_pz_date_entry", info_pz_date_entry);
     builder->get_widget("options_safety_switch", options_safety_switch);
     this->options_safety_switch->signal_state_set().connect_notify( sigc::mem_fun(this, &Wicher::ToolbarOptions::on_switch_state_set) );
 	std::flush(std::cerr);
@@ -34,4 +38,9 @@ void Wicher::ToolbarOptions::on_switch_state_set(bool state){
     renderer->property_editable() = state;
     renderer = static_cast<Gtk::CellRendererText*>(pz_tree->get_column(4)->get_first_cell());
     renderer->property_editable() = state;
+
+    info_wz_person_entry->set_editable(state);
+    info_wz_date_entry->set_editable(state);
+    info_pz_person_entry->set_editable(state);
+    info_pz_date_entry->set_editable(state);
 }
