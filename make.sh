@@ -7,10 +7,12 @@ fi
 if ! [ -e obj ]; then
 	mkdir obj
 fi
-FLAGS="-std=c++11 -O3 -Wall -Iinclude `pkg-config --cflags gtkmm-3.0 jansson`"
+FLAGS="-O3 -Wall -Iinclude `pkg-config --cflags gtkmm-3.0 jansson`"
 LIBS="`pkg-config --libs gtkmm-3.0 jansson`"
 if [ "`uname | grep -c -i mingw`" != 0 ]; then
-	LIBS="$LIBS -lws2_32"
+	LIBS="$LIBS -lboost_thread-mt -lboost_system-mt -lws2_32"
+else
+	LIBS="$LIBS -lboost_thread -lboost_system"
 fi
 g++ -c $FLAGS src/Toolkit.cpp -o obj/toolkit.o
 g++ -c $FLAGS src/Config.cpp -o obj/config.o
