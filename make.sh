@@ -8,7 +8,7 @@ if ! [ -e obj ]; then
 	mkdir obj
 fi
 FLAGS="-O3 -Wall -Iinclude `pkg-config --cflags gtkmm-3.0 jansson`"
-LIBS="`pkg-config --libs gtkmm-3.0 jansson`"
+LIBS="`pkg-config --libs gtkmm-3.0 jansson` -lhpdf"
 if [ "`uname | grep -c -i mingw`" != 0 ]; then
 	LIBS="$LIBS -lboost_thread-mt -lboost_system-mt -lws2_32"
 else
@@ -32,6 +32,9 @@ g++ -c $FLAGS src/SignalWindows/CreatePZWindow.cpp -o obj/createpzwindow.o
 g++ -c $FLAGS src/SignalWindows/InfoTypeWindow.cpp -o obj/infotypewindow.o
 g++ -c $FLAGS src/SignalWindows/AddItemsWindow.cpp -o obj/additemswindow.o
 g++ -c $FLAGS src/SignalWindows/InfoItemWindow.cpp -o obj/infoitemwindow.o
+g++ -c $FLAGS src/PDF/entry_gen.cpp -o obj/entry_gen.o
+g++ -c $FLAGS src/PDF/wz_gen.cpp -o obj/wz_gen.o
+g++ -c $FLAGS src/PDF/pz_gen.cpp -o obj/pz_gen.o
 g++ -c $FLAGS src/SignalWindows/InfoWZWindow.cpp -o obj/infowzwindow.o
 g++ -c $FLAGS src/SignalWindows/InfoPZWindow.cpp -o obj/infopzwindow.o
 g++ -c $FLAGS src/SignalWindows/SignalWindows.cpp -o obj/signalwindows.o
@@ -61,6 +64,9 @@ g++ $FLAGS \
 	obj/infotypewindow.o\
 	obj/additemswindow.o\
 	obj/infoitemwindow.o\
+	obj/entry_gen.o\
+	obj/wz_gen.o\
+	obj/pz_gen.o\
 	obj/infowzwindow.o\
 	obj/infopzwindow.o\
 	obj/signalwindows.o\

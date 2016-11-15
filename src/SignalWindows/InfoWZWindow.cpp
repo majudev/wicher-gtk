@@ -1,4 +1,5 @@
 #include "SignalWindows.h"
+#include "PDF.h"
 
 Wicher::WZItemsListColumns::WZItemsListColumns(){
     add(id); add(type); add(type_name);
@@ -115,9 +116,38 @@ void Wicher::SignalWindows::on_info_wz_pz_button_clicked(){
 }
 
 void Wicher::SignalWindows::on_info_wz_print_button_clicked(){
-    Gtk::MessageDialog dialog(*this->info_wz_window, "Ta funkcja nie jest jeszcze aktywna!");
+    /*Gtk::MessageDialog dialog(*this->info_wz_window, "Ta funkcja nie jest jeszcze aktywna!");
     dialog.set_secondary_text("Ta funkcja nie została jeszcze napisana.");
-    dialog.run();
+    dialog.run();*/
+    Gtk::FileChooserDialog dialog("Zapisz plik", Gtk::FILE_CHOOSER_ACTION_SAVE);
+    //dialog.set_transient_for(*this);
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Anuluj", Gtk::RESPONSE_CANCEL);
+    dialog.add_button("Zapisz", Gtk::RESPONSE_OK);
+
+    int result = dialog.run();
+
+    switch(result){
+        case(Gtk::RESPONSE_OK):
+            Glib::ustring id = info_wz_id_entry->get_text();
+            Glib::ustring person = info_wz_person_entry->get_text();
+            Glib::ustring date = info_wz_date_entry->get_text();
+            Glib::ustring comment = info_wz_comment_entry->get_text();
+            
+            Wicher::PDF::EntryGen gen;
+            Gtk::TreeModel::Children children = this->info_wz_items_list->children();
+            for(Gtk::TreeModel::Children::iterator iter = children.begin(); iter != children.end(); ++iter){
+                Gtk::TreeModel::Row row = *iter;
+                int id = row[wz_items_list_columns.id];
+                Glib::ustring type = row[wz_items_list_columns.type];
+                gen.append(id, type);
+            }
+            
+            PDF::generate_wz(dialog.get_filename(), id, "Nobody at all", person, date, "Purpose", "", false, gen.get_entries());
+            break;
+    }
+    this->info_wz_window->close();
 }
 
 bool Wicher::SignalWindows::is_shown_info_wz_window(){
