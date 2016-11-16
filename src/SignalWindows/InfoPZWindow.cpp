@@ -117,8 +117,8 @@ void Wicher::SignalWindows::on_info_pz_print_button_clicked(){
                 gen.append(id, type);
             }
             
-            PDF::generate_pz(dialog.get_filename(), id, wz_id, "Nobody at all", person, date, false, gen.get_entries());
-            break;
+            if(PDF::generate_pz(dialog.get_filename(), id, wz_id, "Nobody at all", person, date, false, gen.get_entries())) Dialogger::pdf_ok(this->info_pz_window, dialog.get_filename());
+            else Dialogger::pdf_error(this->info_pz_window, dialog.get_filename());
     }
     this->info_pz_window->close();
 }

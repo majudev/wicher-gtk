@@ -29,6 +29,10 @@ class Dialogger{
         static void creating_already_shown(Gtk::Window * parent);
         static void info_already_shown(Gtk::Window * parent);
         static void empty_entries(Gtk::Window * parent);
+    
+        //PDF
+        static void pdf_ok(Gtk::Window * parent, std::string path);
+        static void pdf_error(Gtk::Window * parent, std::string path);
 
     private:
         static void info(Gtk::Window * parent, std::string primary, std::string secondary);

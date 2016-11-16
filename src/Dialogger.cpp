@@ -112,3 +112,11 @@ void Wicher::Dialogger::info_already_shown(Gtk::Window * parent){
 void Wicher::Dialogger::empty_entries(Gtk::Window * parent){
     info(parent, "Uzupełnij wszystkie pola", "Nie wszystkie pola obowiązkowe zostały uzupełnione.");
 }
+
+void Wicher::Dialogger::pdf_ok(Gtk::Window * parent, std::string path){
+    info(parent, "Tworzenie dokumentu zakończone sukcesem", "Zapisano do " + path);
+}
+
+void Wicher::Dialogger::pdf_error(Gtk::Window * parent, std::string path){
+    error(parent, "Błąd przy tworzeniu dokumentu", "Błąd zapisu " + path);
+}
