@@ -147,7 +147,7 @@ bool Wicher::PDF::generate_wz(std::string outname, std::string id, std::string i
 		char buf[10];
 		int page_n = 1;
 		
-		for(int i = 0; i != entries.size(); ++i){
+		for(unsigned int i = 0; i != entries.size(); ++i){
 			tw = HPDF_Page_TextWidth (page, entries[i].name.c_str());
 			HPDF_Page_BeginText (page);
 			HPDF_Page_MoveTextPos (page, LR_MARGIN + 5, position - (CELL_HEIGHT + CELL_TEXT_SIZE)/2 + 1);
@@ -170,7 +170,7 @@ bool Wicher::PDF::generate_wz(std::string outname, std::string id, std::string i
 			
 			float comment_startpos = position;
 			
-			for(int j = 0; j != entries[i].ids.size(); ++j){
+			for(unsigned int j = 0; j != entries[i].ids.size(); ++j){
 				HPDF_Page_SetLineWidth (page, 1);
 				HPDF_Page_MoveTo (page, LR_MARGIN, position - CELL_HEIGHT);
 				HPDF_Page_LineTo (page, LR_MARGIN, position);
@@ -234,7 +234,7 @@ bool Wicher::PDF::generate_wz(std::string outname, std::string id, std::string i
 				}
 			}
 			
-			sprintf(buf, "%d", entries[i].ids.size());
+			sprintf(buf, "%lu", entries[i].ids.size());
 			tw = HPDF_Page_TextWidth (page, buf);
 			HPDF_Page_BeginText (page);
 			HPDF_Page_MoveTextPos (page, width - LR_MARGIN - COMMENT_WIDTH - 5 - tw, position - (CELL_HEIGHT + CELL_TEXT_SIZE)/2 + 1 + CELL_HEIGHT);
