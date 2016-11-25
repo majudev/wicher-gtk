@@ -22,15 +22,16 @@ namespace PDF{
 	class Entry{
 		public:
 			Entry();
-			Entry(std::string name, std::vector<int> ids, std::string comment);
+			Entry(std::string name, std::string type, std::vector<int> ids, std::string comment);
 			std::string name;
+			std::string type;
 			std::vector<int> ids;
 			std::string comment;
 	};
 	class EntryGen{
 		public:
 			EntryGen();
-			void append(int id, std::string type);
+			void append(int id, std::string name, std::string type);
 			std::vector<Entry> & get_entries();
 		protected:
 			std::vector<Entry> entries;

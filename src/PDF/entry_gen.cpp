@@ -4,22 +4,23 @@
 #include "PDF.h"
 
 Wicher::PDF::Entry::Entry() {}
-Wicher::PDF::Entry::Entry(std::string name, std::vector<int> ids, std::string comment) : name(name), ids(ids), comment(comment){}
+Wicher::PDF::Entry::Entry(std::string name, std::string type, std::vector<int> ids, std::string comment) : name(name), type(type), ids(ids), comment(comment){}
 Wicher::PDF::EntryGen::EntryGen(){}
 
-void Wicher::PDF::EntryGen::append(int id, std::string type){
+void Wicher::PDF::EntryGen::append(int id, std::string name, std::string type){
 	Entry e;
 	bool found = false;
 	for(std::vector<Entry>::iterator iter = this->entries.begin(); iter != this->entries.end() && !found; ++iter){
 		e = *iter;
-		if(e.name == type){
+		if(e.type == type){
 			found = true;
 			break;
 		}
 	}
 	e.ids.push_back(id);
 	if(!found){
-		e.name = type;
+		e.type = type;
+		e.name = name;
 		this->entries.push_back(e);
 	}
 }

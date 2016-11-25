@@ -196,7 +196,7 @@ bool Wicher::PDF::generate_wz(std::string outname, std::string id, std::string i
 					}
 				}
 				
-				std::string idtext = Wicher::Toolkit::itostr(entries[i].ids[j]);
+				std::string idtext = entries[i].type + "/" + Wicher::Toolkit::itostr(entries[i].ids[j]);
 				tw = HPDF_Page_TextWidth (page, idtext.c_str());
 				HPDF_Page_BeginText (page);
 				HPDF_Page_MoveTextPos (page, LR_MARGIN + 285 - COMMENT_WIDTH/2, position - (CELL_HEIGHT + CELL_HEADER_TEXT_SIZE)/2 + 1);

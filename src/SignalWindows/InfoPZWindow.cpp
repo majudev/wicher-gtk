@@ -36,17 +36,24 @@ void Wicher::SignalWindows::show_info_pz_window(const Gtk::TreeModel::Path& path
                                 json_t * obj = json_array_get(array, x);
                                 int item_id = json_integer_value(json_object_get(obj, "id"));
                                 const char * item_type = json_string_value(json_object_get(obj, "type"));
-                                if(item_type){
-                                    Gtk::TreeModel::iterator iterc = this->info_pz_items_list->append();
-                                    Gtk::TreeModel::Row rowc = *iterc;
-                                    rowc[wz_items_list_columns.id] = item_id;
-                                    rowc[wz_items_list_columns.type] = item_type;
-                                    rowc[wz_items_list_columns.type_name] = "";
+                                json_t * items_array = json_object_get(root, "types");
+                                for(unsigned int i = 0; i < json_array_size(items_array); ++i){
+                                    json_t * item_obj = json_array_get(items_array, i);
+                                    const char * type_id = json_string_value(json_object_get(item_obj, "id"));
+                                    if(type_id && item_type && strcmp(type_id, item_type) == 0){
+                                        const char * type_name = json_string_value(json_object_get(item_obj, "name"));
+                                        Gtk::TreeModel::iterator iterc = this->info_pz_items_list->append();
+                                        Gtk::TreeModel::Row rowc = *iterc;
+                                        rowc[wz_items_list_columns.id] = item_id;
+                                        rowc[wz_items_list_columns.type] = Glib::ustring(item_type);
+                                        rowc[wz_items_list_columns.type_name] = Glib::ustring(type_name);
+                                        break;
+                                    }
                                 }
                                 ++x;
                             }
                         }
-                    }else Wicher::Dialogger::query_error(info_wz_window, root);
+                    }else Wicher::Dialogger::query_error(info_pz_window, root);
                 }
                 free(root);
             }
@@ -93,6 +100,11 @@ void Wicher::SignalWindows::on_info_pz_print_button_clicked(){
     dialog.run();*/
     Gtk::FileChooserDialog dialog("Zapisz plik", Gtk::FILE_CHOOSER_ACTION_SAVE);
     //dialog.set_transient_for(*this);
+    
+    Glib::RefPtr<Gtk::FileFilter> filter = Gtk::FileFilter::create();
+    filter->set_name("Plik PDF");
+    filter->add_pattern("*.pdf");
+    dialog.add_filter(filter);
 
     //Add response buttons the the dialog:
     dialog.add_button("_Anuluj", Gtk::RESPONSE_CANCEL);
@@ -114,7 +126,8 @@ void Wicher::SignalWindows::on_info_pz_print_button_clicked(){
                 Gtk::TreeModel::Row row = *iter;
                 int id = row[wz_items_list_columns.id];
                 Glib::ustring type = row[wz_items_list_columns.type];
-                gen.append(id, type);
+                Glib::ustring name = row[wz_items_list_columns.type_name];
+                gen.append(id, name, type);
             }
             
             if(PDF::generate_pz(dialog.get_filename(), id, wz_id, "Nobody at all", person, date, false, gen.get_entries())) Dialogger::pdf_ok(this->info_pz_window, dialog.get_filename());
